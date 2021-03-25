@@ -166,7 +166,9 @@ if (typeof AudioWorkletNode !== 'function') {
             const t = eventQueue[j - 1].eventTime;
             startEvent(eventQueue[j], eventQueue[j - 1].func(t), t);
           }
-          eventQueue.push(new SetValue(eventQueue[i - 1].func(cancelTime), cancelTime));
+          if (i > 0) {
+            eventQueue.push(new SetValue(eventQueue[i - 1].func(cancelTime), cancelTime));
+          }
         };
         node.exponentialRampToValueAtTime = function (value, endTime) {
           if (endTime < context.currentTime) {
